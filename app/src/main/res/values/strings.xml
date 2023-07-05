@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">TwoViews</string>
+    <string name="age">Возраст</string>
+    <string name="name">Имя</string>
+    <string name="close">Закрыть</string>
+    <string name="text_number1">Введите первое число</string>
+    <string name="text_number2">Введите второе число</string>
+</resources>
