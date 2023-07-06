@@ -23,13 +23,5 @@ class ResultViewModel : ViewModel() {
 }
 
 
-//    fun loadData() {
-//        viewModelScope.launch {
-//            showLoadingFragment()
-//            delay(2000) // имитация задержки загрузки данных
-//            val users = UserRepository.getUsers()
-//            _usersLiveData.value = users
-//            showResultFragment(users)
-//        }
-//    }
+
 
