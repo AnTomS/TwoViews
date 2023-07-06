@@ -1,17 +1,19 @@
-package com.example.twoviews.screens
+package com.example.twoviews.ui.screens
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.example.twoviews.data.models.User
 import com.example.twoviews.databinding.FragmentResultBinding
-import com.example.twoviews.models.User
+import com.example.twoviews.ui.viewmodel.ResultViewModel
 
 class ResultFragment : Fragment() {
     private lateinit var binding: FragmentResultBinding
-    private var sum: Int = 0
-    private lateinit var users: List<User>
+    private val viewModel: ResultViewModel by viewModels()
+
 
     companion object {
         private const val ARG_SUM = "arg_sum"
@@ -40,14 +42,18 @@ class ResultFragment : Fragment() {
 
         val args = arguments
         if (args != null) {
-            sum = args.getInt(ARG_SUM)
-            //           users = args.getParcelableArrayList(ARG_USERS) ?: emptyList()
+         val sum = args.getInt(ARG_SUM)
+            viewModel.setSum(sum)
         }
 
-        if (::binding.isInitialized) {
+        viewModel.sumLiveData.observe(viewLifecycleOwner, { sum ->
             binding.resultSum.text = sum.toString()
+        })
+
+        viewModel.usersLiveData.observe(viewLifecycleOwner, { users ->
             // Отображение списка пользователей
             // ...
-        }
+        })
     }
 }
+

@@ -1,45 +1,39 @@
 package com.example.twoviews
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.commit
-import com.example.twoviews.databinding.ActivityMainBinding
-import com.example.twoviews.models.User
-import com.example.twoviews.screens.InputFragment
-import com.example.twoviews.screens.LoadingFragment
-import com.example.twoviews.screens.ResultFragment
+import com.example.twoviews.data.models.User
+import com.example.twoviews.ui.screens.InputFragment
+import com.example.twoviews.ui.screens.LoadingFragment
+import com.example.twoviews.ui.screens.ResultFragment
 
 class Activity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_main)
 
-        supportFragmentManager.commit {
-            add(R.id.container, InputFragment())
+        if (savedInstanceState == null) {
+            showInputFragment()
         }
-        Log.d("Activity", "onCreate")
-
 
     }
 
-    fun navigateToLoadingFragment() {
-        supportFragmentManager.commit {
-            replace(R.id.container, LoadingFragment())
-        }
+    private fun showInputFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, InputFragment.newInstance())
+            .commit()
     }
 
+    fun showLoadingFragment(number1: Int, number2: Int) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, LoadingFragment.newInstance(number1, number2))
+            .commit()
+    }
 
-    // Метод для перехода к третьему фрагменту (ResultFragment)
-    fun navigateToResultFragment(sum: Int, users: List<User>) {
-        supportFragmentManager.commit {
-            replace(R.id.container, ResultFragment.newInstance(sum, users))
-        }
-
-
+    fun showResultFragment(sum: Int, users: List<User>) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, ResultFragment.newInstance(sum, users))
+            .commit()
     }
 }
