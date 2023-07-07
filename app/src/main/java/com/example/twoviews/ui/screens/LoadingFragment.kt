@@ -1,12 +1,15 @@
 package com.example.twoviews.ui.screens
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.twoviews.Activity
+import com.example.twoviews.R
+import com.example.twoviews.data.models.User
 import com.example.twoviews.databinding.FragmentLoadingBinding
 import com.example.twoviews.ui.viewmodel.LoadingViewModel
 
@@ -46,15 +49,23 @@ class LoadingFragment : Fragment() {
         val number2 = arguments?.getInt(NUMBER2) ?: 0
 
         viewModel.calculateSum(number1, number2)
-        viewModel.sumLiveData.observe(viewLifecycleOwner) { sum ->
-            // Передача суммы в следующий фрагмент
-            mainActivity.showResultFragment(sum, emptyList())
+        viewModel.usersLiveData.observe(viewLifecycleOwner) { users ->
+            showResultFragment(viewModel.sumLiveData.value ?: 0, users)
         }
 
-        // Пример имитации загрузки данных
-//        Handler().postDelayed({
-//            mainActivity.showResultFragment(sum, users)// Переходим к ResultFragment
-//        }, 2000)
+        viewModel.sumLiveData.observe(viewLifecycleOwner) { sum ->
+            // Передача суммы в следующий фрагмент
+
+        }
 
     }
+
+    private fun showResultFragment(sum: Int, users: List<User>) {
+        Log.d("LoadingFragment", "Sum: $sum, Users: $users") // Логирование значений
+        val fragment = ResultFragment.newInstance(sum, users)
+        mainActivity.supportFragmentManager.beginTransaction()
+            .replace(R.id.container, fragment)
+            .commit()
+    }
+
 }

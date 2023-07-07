@@ -18,6 +18,7 @@ class LoadingViewModel:ViewModel() {
     fun calculateSum(number1: Int, number2: Int) {
         val sum = number1 + number2
         _sumLiveData.value = sum
+        loadData()
     }
 
     fun loadData() {

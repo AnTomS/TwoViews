@@ -1,6 +1,7 @@
 package com.example.twoviews.ui.screens
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +26,7 @@ class ResultFragment : Fragment() {
             val fragment = ResultFragment()
             val args = Bundle()
             args.putInt(ARG_SUM, sum)
-//            args.putParcelableArrayList(ARG_USERS, List<User>)
+            args.putParcelableArrayList(ARG_USERS, ArrayList(users))
             fragment.arguments = args
             return fragment
         }
@@ -52,17 +53,23 @@ class ResultFragment : Fragment() {
         val args = arguments
         if (args != null) {
             val sum = args.getInt(ARG_SUM)
+            @Suppress("DEPRECATION") val users = args.getParcelableArrayList<User>(ARG_USERS)?.toList() ?: emptyList()
             viewModel.setSum(sum)
+            Log.d("TAG", "onViewCreated: $sum")
+
+            viewModel.setUsers(users)
+            Log.d("TAG", "onViewCreated: $users")
         }
 
-        viewModel.sumLiveData.observe(viewLifecycleOwner, { sum ->
+        viewModel.sumLiveData.observe(viewLifecycleOwner) { sum ->
             binding.resultSum.text = sum.toString()
-        })
+        }
 
         viewModel.usersLiveData.observe(viewLifecycleOwner, { users ->
             // Отображение списка пользователей
-            // ...
+            binding.rvList.adapter
         })
     }
 }
+
 
