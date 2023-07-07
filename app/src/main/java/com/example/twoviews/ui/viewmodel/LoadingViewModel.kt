@@ -21,7 +21,7 @@ class LoadingViewModel:ViewModel() {
         loadData()
     }
 
-    fun loadData() {
+    private fun loadData() {
         viewModelScope.launch {
             delay(2000) // имитация задержки загрузки данных
             val users = UserRepository.getUsers()

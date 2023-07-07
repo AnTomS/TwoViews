@@ -53,10 +53,10 @@ class LoadingFragment : Fragment() {
             showResultFragment(viewModel.sumLiveData.value ?: 0, users)
         }
 
-        viewModel.sumLiveData.observe(viewLifecycleOwner) { sum ->
-            // Передача суммы в следующий фрагмент
-
-        }
+//        viewModel.sumLiveData.observe(viewLifecycleOwner) { sum ->
+//            // Передача суммы в следующий фрагмент
+//
+//        }
 
     }
 
