@@ -2,6 +2,8 @@ package com.example.twoviews.data.repository
 
 import com.example.twoviews.data.models.User
 
+
+//Репозиторий со списком пользователей
 object UserRepository {
     fun getUsers(): List<User> {
         return listOf(

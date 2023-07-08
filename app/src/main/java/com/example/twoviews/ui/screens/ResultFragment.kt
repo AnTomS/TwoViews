@@ -42,7 +42,7 @@ class ResultFragment : Fragment() {
         binding = FragmentResultBinding.inflate(inflater, container, false)
         mainActivity = activity as Activity
         binding.btnClose.setOnClickListener {
-            mainActivity.finish()
+            mainActivity.showInputFragment()
         }
         return binding.root
     }

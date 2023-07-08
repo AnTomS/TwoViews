@@ -5,4 +5,5 @@
     <string name="close">Закрыть</string>
     <string name="text_number1">Введите первое число</string>
     <string name="text_number2">Введите второе число</string>
+    <string name="plug">Ожидайте, идёт вычисление суммы и загрузка списка пользователей</string>
 </resources>

@@ -3,7 +3,7 @@ package com.example.twoviews.data.models
 import android.os.Parcel
 import android.os.Parcelable
 
-
+// Дата класс с информацией о пользователях
 data class User(
     val name: String,
     val age: Int

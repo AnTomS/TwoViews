@@ -19,10 +19,18 @@ class LoadingFragment : Fragment() {
     private lateinit var mainActivity: Activity
     private val viewModel: LoadingViewModel by viewModels()
 
+
+    //companion object введён для передачи данных между фрагментами.
+    // В данном обжекте сохраняются 2 переменные, полученные из 2 полей ввода данных
     companion object {
+        // первая переменная введённая пользователем
         private const val NUMBER1 = "number1"
+
+        // вторая переменная введённая пользователем
         private const val NUMBER2 = "number2"
 
+
+        //сохранение переменных в Ьандл Аругмент, для передачи в другой фрагмент
         fun newInstance(number1: Int, number2: Int): LoadingFragment {
             val fragment = LoadingFragment()
             val args = Bundle()
@@ -32,6 +40,7 @@ class LoadingFragment : Fragment() {
             return fragment
         }
     }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,23 +52,25 @@ class LoadingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //инициализация Активити, для перехода в другой фрагмент
         mainActivity = activity as Activity
 
+        //получение данных из обоих полей ввода данных. Если содержимое поля пустое, то вернётся 0.
         val number1 = arguments?.getInt(NUMBER1) ?: 0
         val number2 = arguments?.getInt(NUMBER2) ?: 0
 
+        //подсчёт суммы с помощью метода из viewmodel
         viewModel.calculateSum(number1, number2)
+        //получение списка пользователей с помощью подписи на liveData viewmodel
         viewModel.usersLiveData.observe(viewLifecycleOwner) { users ->
             showResultFragment(viewModel.sumLiveData.value ?: 0, users)
         }
 
-//        viewModel.sumLiveData.observe(viewLifecycleOwner) { sum ->
-//            // Передача суммы в следующий фрагмент
-//
-//        }
 
     }
 
+    // переход на следующий фрагмент с передачей данных сумма цифр и список пользователей
+    // так же через логирование проверяем что список пользовай содержит данные
     private fun showResultFragment(sum: Int, users: List<User>) {
         Log.d("LoadingFragment", "Sum: $sum, Users: $users") // Логирование значений
         val fragment = ResultFragment.newInstance(sum, users)
