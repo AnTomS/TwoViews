@@ -9,11 +9,11 @@ class ResultViewModel : ViewModel() {
 
 
     //создаём переменную и присваиваем ей значений изменяемой liveData
-    private val _sumLiveData = MutableLiveData<Int>()
+    private val _sumLiveData = MutableLiveData<Long>()
 
 
     //создаём переменную и присваиваем ей значений неизменяемой liveData, значений которой мы получаем из переменной _sumLiveData
-    val sumLiveData: LiveData<Int> get() = _sumLiveData
+    val sumLiveData: LiveData<Long> get() = _sumLiveData
 
     //создаём переменную и присваиваем ей значений изменяемой liveData
     private val _usersLiveData = MutableLiveData<List<User>>()
@@ -23,7 +23,7 @@ class ResultViewModel : ViewModel() {
 
 
     //метод для получения суммы. сумма сохраняется в переменную _sumLiveData.value На изменений которой и подписывается liveData
-    fun setSum(sum: Int) {
+    fun setSum(sum: Long) {
         _sumLiveData.value = sum
     }
 

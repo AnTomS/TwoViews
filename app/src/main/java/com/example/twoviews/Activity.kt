@@ -27,14 +27,14 @@ class Activity : AppCompatActivity() {
     }
 
     //переход на фрагмент экрана загрузки, подсчёта суммы и запроса списка пользователей
-    fun showLoadingFragment(number1: Int, number2: Int) {
+    fun showLoadingFragment(number1: Long, number2: Long) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.container, LoadingFragment.newInstance(number1, number2))
             .commit()
     }
 
     //переход на экран результата
-    fun showResultFragment(sum: Int, users: List<User>) {
+    fun showResultFragment(sum: Long, users: List<User>) {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.container, ResultFragment.newInstance(sum, users))

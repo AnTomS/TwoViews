@@ -12,11 +12,11 @@ import kotlinx.coroutines.launch
 class LoadingViewModel : ViewModel() {
 
     //создаём переменную и присваиваем ей значений изменяемой liveData
-    private val _sumLiveData = MutableLiveData<Int>()
+    private val _sumLiveData = MutableLiveData<Long>()
 
 
     //создаём переменную и присваиваем ей значений неизменяемой liveData, значений которой мы получаем из переменной _sumLiveData
-    val sumLiveData: LiveData<Int> get() = _sumLiveData
+    val sumLiveData: LiveData<Long> get() = _sumLiveData
 
     //создаём переменную и присваиваем ей значений изменяемой liveData
     private val _usersLiveData = MutableLiveData<List<User>>()
@@ -26,7 +26,7 @@ class LoadingViewModel : ViewModel() {
 
     //функция для подсчёта суммы. сумма сохраняется в переменную _sumLiveData.value На изменений которой и подписывается liveData
     // так же здесь мы вызываем функцию loadData() для загрузки списка пользователей
-    fun calculateSum(number1: Int, number2: Int) {
+    fun calculateSum(number1: Long, number2: Long) {
         val sum = number1 + number2
         _sumLiveData.value = sum
         loadData()

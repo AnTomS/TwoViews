@@ -25,10 +25,10 @@ class ResultFragment : Fragment() {
         private const val ARG_SUM = "arg_sum"
         private const val ARG_USERS = "arg_users"
 
-        fun newInstance(sum: Int, users: List<User>): ResultFragment {
+        fun newInstance(sum: Long, users: List<User>): ResultFragment {
             val fragment = ResultFragment()
             val args = Bundle()
-            args.putInt(ARG_SUM, sum)
+            args.putLong(ARG_SUM, sum)
             args.putParcelableArrayList(ARG_USERS, ArrayList(users))
             fragment.arguments = args
             return fragment
@@ -52,7 +52,7 @@ class ResultFragment : Fragment() {
 
         val args = arguments
         if (args != null) {
-            val sum = args.getInt(ARG_SUM)
+            val sum = args.getLong(ARG_SUM)
             @Suppress("DEPRECATION")
             val users = args.getParcelableArrayList<User>(ARG_USERS)?.toList() ?: emptyList()
             viewModel.setSum(sum)

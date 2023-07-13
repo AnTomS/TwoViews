@@ -56,8 +56,8 @@ class InputFragment : Fragment() {
 
         //обработка клика на кнопку перехода на след фрагмент с передачей данных
         binding.btnNextView.setOnClickListener {
-            val number1 = binding.inputN1.text.toString().toInt()
-            val number2 = binding.inputN2.text.toString().toInt()
+            val number1 = binding.inputN1.text.toString().toLong()
+            val number2 = binding.inputN2.text.toString().toLong()
             mainActivity.showLoadingFragment(number1, number2)
         }
     }

@@ -31,11 +31,11 @@ class LoadingFragment : Fragment() {
 
 
         //сохранение переменных в Ьандл Аругмент, для передачи в другой фрагмент
-        fun newInstance(number1: Int, number2: Int): LoadingFragment {
+        fun newInstance(number1: Long, number2: Long): LoadingFragment {
             val fragment = LoadingFragment()
             val args = Bundle()
-            args.putInt(NUMBER1, number1)
-            args.putInt(NUMBER2, number2)
+            args.putLong(NUMBER1, number1)
+            args.putLong(NUMBER2, number2)
             fragment.arguments = args
             return fragment
         }
@@ -56,8 +56,8 @@ class LoadingFragment : Fragment() {
         mainActivity = activity as Activity
 
         //получение данных из обоих полей ввода данных. Если содержимое поля пустое, то вернётся 0.
-        val number1 = arguments?.getInt(NUMBER1) ?: 0
-        val number2 = arguments?.getInt(NUMBER2) ?: 0
+        val number1 = arguments?.getLong(NUMBER1) ?: 0
+        val number2 = arguments?.getLong(NUMBER2) ?: 0
 
         //подсчёт суммы с помощью метода из viewmodel
         viewModel.calculateSum(number1, number2)
@@ -71,7 +71,7 @@ class LoadingFragment : Fragment() {
 
     // переход на следующий фрагмент с передачей данных сумма цифр и список пользователей
     // так же через логирование проверяем что список пользовай содержит данные
-    private fun showResultFragment(sum: Int, users: List<User>) {
+    private fun showResultFragment(sum: Long, users: List<User>) {
         Log.d("LoadingFragment", "Sum: $sum, Users: $users") // Логирование значений
         val fragment = ResultFragment.newInstance(sum, users)
         mainActivity.supportFragmentManager.beginTransaction()
