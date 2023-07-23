@@ -13,7 +13,6 @@
         android:orientation="vertical">
 
         <EditText
-
             android:id="@+id/input_n1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -37,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="24dp"
-            android:text="Вторая Viewv"
+            android:text="Вторая View"
             android:textAllCaps="false" />
 
     </LinearLayout>

@@ -6,32 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.twoviews.Activity
-import com.example.twoviews.data.models.User
 import com.example.twoviews.databinding.FragmentResultBinding
 import com.example.twoviews.ui.adapter.ResultAdapter
-import com.example.twoviews.ui.viewmodel.ResultViewModel
+import com.example.twoviews.ui.viewmodel.MainViewModel
 
 class ResultFragment : Fragment() {
     private lateinit var binding: FragmentResultBinding
-    private val viewModel: ResultViewModel by viewModels()
+    private val viewModel: MainViewModel by activityViewModels()
     private lateinit var mainActivity: Activity
     private lateinit var adapter: ResultAdapter
 
-
+    //companion object введён для навигации между фрагментами.
     companion object {
-        private const val ARG_SUM = "arg_sum"
-        private const val ARG_USERS = "arg_users"
-
-        fun newInstance(sum: Long, users: List<User>): ResultFragment {
-            val fragment = ResultFragment()
-            val args = Bundle()
-            args.putLong(ARG_SUM, sum)
-            args.putParcelableArrayList(ARG_USERS, ArrayList(users))
-            fragment.arguments = args
-            return fragment
+        fun newInstance(): ResultFragment {
+            return ResultFragment()
         }
     }
 
@@ -50,29 +41,32 @@ class ResultFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val args = arguments
-        if (args != null) {
-            val sum = args.getLong(ARG_SUM)
-            @Suppress("DEPRECATION")
-            val users = args.getParcelableArrayList<User>(ARG_USERS)?.toList() ?: emptyList()
-            viewModel.setSum(sum)
-            Log.d("TAG", "onViewCreated: $sum")
+//инициализация адаптера, для отображения списка пользователей
+        adapter = ResultAdapter(emptyList())
 
-            viewModel.setUsers(users)
-            Log.d("TAG", "onViewCreated: $users")
+        //устанавливаем созданный адаптер для RecyclerView
+        binding.rvList.adapter = adapter
 
-            adapter = ResultAdapter(users)
-            binding.rvList.adapter = adapter
-            binding.rvList.layoutManager = LinearLayoutManager(requireContext())
-        }
+        //инициализация адаптера, для определения расположения элементов на экране
+        binding.rvList.layoutManager = LinearLayoutManager(requireContext())
 
-
+        //через нашу общую viewmodel мы подписываемся на изменение переменной sum,
+        //когда переменная изменит своё знаничение, то адаптер обновит цифру на экране
         viewModel.sumLiveData.observe(viewLifecycleOwner) { sum ->
             binding.resultSum.text = sum.toString()
+
+            //вывод переменной sum на в логах
+            Log.d("ResultFragment", "Sum: $sum")
         }
 
+
+        //через нашу общую viewmodel мы подписываемся на изменение переменной users,
+        //когда переменная изменит своё знаничение, то адаптер обновит список пользователей на экране
+        //метод submitList используется для передачи нового списка пользователей в RecyclerView для перерисовки нового спсика элементов
         viewModel.usersLiveData.observe(viewLifecycleOwner) { users ->
             adapter.submitList(users)
+
+            //вывод переменной users на в логах
             Log.d("ResultFragment", "Users: $users")
         }
     }
